@@ -1,0 +1,7 @@
+export { default as userRouter } from "./userRouter.js"
+export { default as authRouter } from "./authRouter.js"
+export { default as otpRouter } from "./otpRouter.js"
+export { default as auditRouter } from "./auditRouter.js"
+export { default as uploadRouter } from "./uploadRouter.js"
+export { default as dashboardRouter } from "./dashboardRouter.js"
+export { default as recordRouter } from "./recordRouter.js"

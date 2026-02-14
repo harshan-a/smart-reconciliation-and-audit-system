@@ -1,0 +1,14 @@
+@layer components {
+  .input-bar {
+    @apply text-[14px] w-full py-2 p-2.5 border border-gray-300 rounded text-base transition-colors duration-300 focus:outline-none focus:border-cyan-700 focus:ring-3 focus:ring-cyan-400;
+  }
+  .submit-btn {
+    @apply w-full py-2.5 bg-cyan-400 text-white border-none rounded cursor-pointer hover:bg-cyan-500 active:scale-90 transition-all;
+  }
+  .form-secondary-action {
+    @apply w-fit mx-auto mt-2 text-gray-600 text-sm cursor-pointer select-none hover:text-gray-400 active:text-gray-300 transition-all;
+  }
+  .error-message {
+    @apply text-center wrap-break-word mx-auto mt-4 text-red-500 text-xs;
+  }
+}
