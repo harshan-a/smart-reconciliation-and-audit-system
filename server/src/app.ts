@@ -1,3 +1,5 @@
+import dotenv from "dotenv"
+dotenv.config()
 import express from "express"
 import cookieParser from "cookie-parser"
 import cors from "cors"
@@ -19,9 +21,10 @@ import errorHandling from "./middlewares/errorHandling.js"
 
 const app = express()
 
+// console.log(process.env.CLIENT_BASE_URLS?.split(","))
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: process.env.CLIENT_BASE_URLS?.split(","),
     credentials: true,
   }),
 )
