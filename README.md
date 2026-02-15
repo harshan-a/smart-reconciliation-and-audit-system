@@ -67,7 +67,9 @@ Deployment: **Render**
 # 📂 Project Structure
 
 ├── client/ → Frontend (React)
+
 ├── server/ → Backend (Express)
+
 └── README.md
 
 ---
