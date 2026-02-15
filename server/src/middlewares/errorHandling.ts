@@ -8,7 +8,7 @@ export default function errorHandling(
   res: Response,
   next: NextFunction,
 ) {
-  console.log(error)
+  // console.log(error)
   const customError = {
     msg: error.message || "Something went wrong, please try again later...",
     statusCode: error.statusCode || 500,

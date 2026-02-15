@@ -1,0 +1,531 @@
+openapi: 3.0.0
+info:
+  title: Reconciliation and audit
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://smart-reconciliation-and-audit-system.onrender.com/api/v1
+  variables: {}
+paths:
+  /uploads:
+    get:
+      tags:
+      - UploadJobs (file)
+      summary: Get all uploadJobs
+      operationId: GetalluploadJobs
+      parameters:
+      - name: fields
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: fileName
+      - name: status
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: Completed
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    post:
+      tags:
+      - UploadJobs (file)
+      summary: Create uploadJob
+      operationId: CreateuploadJob
+      parameters: []
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding: {}
+            schema:
+              required:
+              - file
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /uploads/{uploadJobId}:
+    get:
+      tags:
+      - UploadJobs (file)
+      summary: Get uploadJob
+      operationId: GetuploadJob
+      parameters:
+        - in: path
+          name: uploadJobId
+          required: true
+          schema:
+            type: string
+            minimum: 1
+          description: The uploaded job ID
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /records:
+    get:
+      tags:
+      - Records
+      summary: Get multiple records
+      operationId: Getmultiplerecords
+      parameters:
+      - name: uploadJobId
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 10
+      - name: page
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /records/{recordId}:
+    patch:
+      parameters:
+        - in: path
+          name: recordId
+          required: true
+          schema:
+            type: string
+            minimum: 1
+          description: The record ID
+      tags:
+      - Records
+      summary: Update record
+      operationId: Updaterecord
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdaterecordRequest'
+              - example:
+                  status: Duplicate
+            example:
+              status: Duplicate
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /dashboard:
+    get:
+      tags:
+      - Dashboard
+      summary: Get Dashboard data
+      operationId: GetDashboarddata
+      parameters:
+      - name: startDate
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: uploadBy
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /audit/{recordId}:
+    get:
+      tags:
+      - Audit logs
+      summary: Get Audit logs for record
+      operationId: GetAuditlogsforrecord
+      parameters:
+        - in: path
+          name: recordId
+          required: true
+          schema:
+            type: string
+            minimum: 1
+          description: The record ID
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /users/check:
+    get:
+      tags:
+      - Users
+      summary: Check Email exists
+      operationId: CheckEmailexists
+      parameters:
+      - name: email
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: harshan2412005@gmail.com
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /users:
+    get:
+      tags:
+      - Users
+      summary: Get all users
+      operationId: Getallusers
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: Login
+      operationId: Login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LoginRequest'
+              - example:
+                  email: harshan2412005@gmail.com
+                  password: qwer
+            example:
+              email: harshan2412005@gmail.com
+              password: qwer
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/signup:
+    post:
+      tags:
+      - Auth
+      summary: Signup
+      operationId: Signup
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/SignupRequest'
+              - example:
+                  email: harshan2412005@gmail.com
+                  password: qwer
+                  role: admin
+                  name: Harshan
+                  roleSecret: admin*
+            example:
+              email: harshan2412005@gmail.com
+              password: qwer
+              role: admin
+              name: Harshan
+              roleSecret: admin*
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/change-password:
+    post:
+      tags:
+      - Auth
+      summary: Change password
+      operationId: Changepassword
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ChangepasswordRequest'
+              - example:
+                  email: harshan2412005@gmail
+                  password: asdf
+            example:
+              email: harshan2412005@gmail
+              password: asdf
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /otp/send:
+    post:
+      tags:
+      - Otp
+      summary: Send otp
+      operationId: Sendotp
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/SendotpRequest'
+              - example:
+                  email: harshan2412005@gmail
+            example:
+              email: harshan2412005@gmail
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /otp/verify:
+    post:
+      tags:
+      - Otp
+      summary: Verify otp
+      operationId: Verifyotp
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/VerifyotpRequest'
+              - example:
+                  email: harshan2412005@gmail
+                  otp: '931487'
+            example:
+              email: harshan2412005@gmail
+              otp: '931487'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+components:
+  schemas:
+    UpdaterecordRequest:
+      title: UpdaterecordRequest
+      required:
+      - status
+      type: object
+      properties:
+        status:
+          type: string
+      example:
+        status: Duplicate
+    LoginRequest:
+      title: LoginRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: harshan2412005@gmail.com
+        password: qwer
+    SignupRequest:
+      title: SignupRequest
+      required:
+      - email
+      - password
+      - role
+      - name
+      - roleSecret
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        role:
+          type: string
+        name:
+          type: string
+        roleSecret:
+          type: string
+      example:
+        email: harshan2412005@gmail.com
+        password: qwer
+        role: admin
+        name: Harshan
+        roleSecret: admin*
+    ChangepasswordRequest:
+      title: ChangepasswordRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: harshan2412005@gmail
+        password: asdf
+    SendotpRequest:
+      title: SendotpRequest
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          type: string
+      example:
+        email: harshan2412005@gmail
+    VerifyotpRequest:
+      title: VerifyotpRequest
+      required:
+      - email
+      - otp
+      type: object
+      properties:
+        email:
+          type: string
+        otp:
+          type: string
+      example:
+        email: harshan2412005@gmail
+        otp: '931487'
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Auth
+  description: ''
+- name: Otp
+  description: ''
+- name: Users
+  description: ''
+- name: UploadJobs (file)
+  description: ''
+- name: Records
+  description: ''
+- name: Dashboard
+  description: ''
+- name: Audit logs
+  description: ''

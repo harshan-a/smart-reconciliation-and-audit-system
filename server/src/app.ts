@@ -4,6 +4,8 @@ import express from "express"
 import cookieParser from "cookie-parser"
 import cors from "cors"
 import morgan from "morgan"
+import swaggerUI from "swagger-ui-express"
+import YamlJs from "yamljs"
 
 // routes
 import {
@@ -36,17 +38,17 @@ app.use(cookieParser())
 app.use(morgan("dev"))
 
 // routes
-app.use("/api/v1/users", userRouter)
-app.use("/api/v1/auth", authRouter)
-app.use("/api/v1/otp", otpRouter)
-app.use("/api/v1/uploads", uploadRouter)
-app.use("/api/v1/dashboard", dashboardRouter)
-app.use("/api/v1/records", recordRouter)
-app.use("/api/v1/audit", auditRouter)
+app.use("/api/v1/users", userRouter) // 2 end points
+app.use("/api/v1/auth", authRouter) // 3 end points
+app.use("/api/v1/otp", otpRouter) // 2 end points
+app.use("/api/v1/uploads", uploadRouter) // 3 end points
+app.use("/api/v1/dashboard", dashboardRouter) // 1 end point
+app.use("/api/v1/records", recordRouter) // 2 end points
+app.use("/api/v1/audit", auditRouter) // 1 end point
+// total - 14 end points
 
-// app.get("/api/v1/user", (req, res) => {
-//   res.sendStatus(200)
-// })
+const docs = YamlJs.load("./swagger.yaml")
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(docs))
 
 // not found and errorhandling middlerware
 app.use(notFound)
