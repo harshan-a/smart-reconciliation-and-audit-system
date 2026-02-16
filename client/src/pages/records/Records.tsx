@@ -38,6 +38,7 @@ export default function Records() {
 
   return (
     <div>
+      <title>Records</title>
       <h1 className="text-3xl font-bold text-cyan-400 mb-8">
         Reconciliation Records
       </h1>

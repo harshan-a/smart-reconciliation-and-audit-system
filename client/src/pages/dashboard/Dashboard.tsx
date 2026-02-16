@@ -48,6 +48,7 @@ export default function Dashboard() {
 
   return (
     <div>
+      <title>Dashboard</title>
       <h1 className="text-3xl font-bold text-cyan-400 mb-5">
         Dashboard Overview
       </h1>

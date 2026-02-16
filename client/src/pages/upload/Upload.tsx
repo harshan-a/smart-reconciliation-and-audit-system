@@ -53,6 +53,7 @@ export default function Upload() {
 
   return (
     <div>
+      <title>Upload</title>
       <h1 className="text-3xl font-bold text-cyan-400 mb-8">
         Upload Transactions
       </h1>
